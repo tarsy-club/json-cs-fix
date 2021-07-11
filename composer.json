@@ -1,0 +1,59 @@
+{
+    "bin": [
+        "bin-dist/jq",
+        "bin-dist/json-cs-fix.sh"
+    ],
+    "config": {
+        "apcu-autoloader": true,
+        "cache-files-ttl": 7776000,
+        "discard-changes": true,
+        "optimize-autoloader": true,
+        "preferred-install": "dist"
+    },
+    "description": "tarsy-club json-cs-fix",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        },
+        "hooks": {
+            "pre-commit": "composer run git:pre-commit"
+        },
+        "scripts-dev": {
+            "git:add": "git add .",
+            "git:pre-commit": [
+                "@json:fix",
+                "@git:add"
+            ],
+            "git:update-hooks": {
+                "add": "cghooks add -f --lock-dir=${PWD}/var/cghooks",
+                "update": "cghooks update --lock-dir=${PWD}/var/cghooks"
+            },
+            "post-install-cmd": "@git:update-hooks"
+        }
+    },
+    "license": [
+        "proprietary"
+    ],
+    "name": "tarsy-club/json-cs-fix",
+    "replace": {
+        "tarsy-club/jq-bin": "*"
+    },
+    "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
+        "neronmoon/scriptsdev": "0.1.3"
+    },
+    "scripts": {
+        "json:fix": "bin-dist/json-cs-fix.sh",
+        "post-install-cmd": "@post:install:cmd",
+        "post-update-cmd": "@post:install:cmd",
+        "post:install:cmd": {
+            "empty": "echo empty post:install:cmd"
+        },
+        "validate:composer": {
+            "lock": "@composer u --no-progress --no-autoloader --no-scripts --no-suggest --ignore-platform-reqs --root-reqs --no-plugins nothing --lock",
+            "platform": "@composer check-platform-reqs",
+            "strict": "@composer validate --strict --no-check-all"
+        }
+    },
+    "type": "library"
+}
