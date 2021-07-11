@@ -40,7 +40,7 @@
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
-        "neronmoon/scriptsdev": "0.1.3"
+        "neronmoon/scriptsdev": "*"
     },
     "scripts": {
         "json:fix": "bin-dist/json-cs-fix.sh",
